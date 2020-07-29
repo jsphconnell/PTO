@@ -1,6 +1,5 @@
 from collections import namedtuple
 import random, copy
-import numpy
 
 from POLY_REP import POLY_REP
 
@@ -59,9 +58,10 @@ class OPS:
     def microbial_infect_and_mutate_ind(self, winner, loser, infection_rate, mutation_rate):
 
         for i, (w, l) in enumerate(zip(winner.geno.items(), loser.geno.items())):
-            if numpy.random.rand() < infection_rate:
-                loser.geno.update({ l[0] : w[1]}) # Infect the loser with winner genotype
-            if numpy.random.rand() < mutation_rate:
-                loser.geno.update({ l[0] : self.rep.perturb(l[1])}) # Flip loser bit at that address.
 
-        return self.fix_ind(loser.geno) # fix geno and get pheno
+            if random.random() < infection_rate:
+                loser.geno.update({ l[0] : w[1]}) # Infect the loser with winner genotype
+            if random.random() < mutation_rate:
+                loser.geno.update({ l[0] : self.rep.perturb(l[1])})
+
+        return self.fix_ind(loser.geno)# fix geno and get pheno

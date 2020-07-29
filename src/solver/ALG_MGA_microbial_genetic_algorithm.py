@@ -13,8 +13,8 @@ class MGA:
     def __init__(self, ops, budget):
         self.ops = ops
 
-        self.NUMBER_GENERATION = int(math.sqrt(budget))
-        self.POPULATION_SIZE = int(budget / self.NUMBER_GENERATION)
+        self.NUMBER_GENERATION = int(budget / 2)
+        self.POPULATION_SIZE = int(math.sqrt(budget))
         self.INFECTION_RATE = 0.5
         self.MUTATION_RATE = 0.5
         self.DEME_SIZE = 5
@@ -34,6 +34,7 @@ class MGA:
             loser = self.infect_loser(winner,loser,self.INFECTION_RATE, self.MUTATION_RATE) #infect and mutate loser
             population[loser_pos] = loser
             fitness_population = self.evaluate_pop(population)
+            #fitness_loser = self.ops.evaluate_ind(loser)
 
         return self.best_pop(population, fitness_population)
 
