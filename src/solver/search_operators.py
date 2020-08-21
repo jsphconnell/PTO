@@ -57,11 +57,10 @@ class OPS:
 
     def microbial_infect_and_mutate_ind(self, winner, loser, infection_rate, mutation_rate):
 
-        for i, (w, l) in enumerate(zip(winner.geno.items(), loser.geno.items())):
-
+        for key, value in loser.geno.items():
             if random.random() < infection_rate:
-                loser.geno.update({ l[0] : w[1]}) # Infect the loser with winner genotype
+                loser = self.crossover_ind(loser, winner)
             if random.random() < mutation_rate:
-                loser.geno.update({ l[0] : self.rep.perturb(l[1])})
+                loser.geno.update({ key : self.rep.perturb(value)})
 
         return self.fix_ind(loser.geno)# fix geno and get pheno

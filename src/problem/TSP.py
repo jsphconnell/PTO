@@ -29,25 +29,25 @@ from PTO import compare_all, stat_summary, make_table
 # no need for @random_function because this will be used as a generator itself
 def randsol1(inst):
     # Create a permutation by shuffling. We provide a custom shuffle function.
-    return swap_shuffle(range(len(inst)))
+    return swap_shuffle(list(range(len(inst))))
 
 @random_function # inform PTO that this function must be traced
 def swap_shuffle(perm):
-    for i in range(len(perm)):
-        ri = random.choice(range(i,len(perm)))
+    for i in list(range(len(perm))):
+        ri = random.choice(list(range(i,len(perm))))
         perm[i],perm[ri]=perm[ri],perm[i]
     return perm
 
 # no need for @random_function because this will be used as a generator itself
 def randsol2(inst):
     # Create a permutation by shuffling. We provide a custom shuffle function.
-    return rev_shuffle(range(len(inst)))
+    return rev_shuffle(list(range(len(inst))))
 
 @random_function # inform PTO that this function must be traced
 def rev_shuffle(perm):
     # this is like multiple applications of 2-opt
-    for i in range(len(perm)):
-        ri = random.choice(range(i,len(perm)))
+    for i in list(range(len(perm))):
+        ri = random.choice(list(range(i,len(perm))))
         perm[i:ri+1] = perm[i:ri+1][::-1] # reverse a section
     return perm
 
@@ -135,7 +135,7 @@ def get_TSPLIB(dirname):
     import tarfile
     import requests # conda install requests, or pip install requests
 
-    tsplib_url = "http://www.iwr.uni-heidelberg.de/groups/comopt/software/TSPLIB95/tsp/ALL_tsp.tar.gz"
+    tsplib_url = "http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/tsp/ALL_tsp.tar.gz"
     r = requests.get(tsplib_url)
     os.makedirs(dirname)
     filename = os.path.join(dirname, "ALL_tsp.tar.gz")
@@ -187,6 +187,7 @@ class TSP:
         coord_section = False
         for line in f.readlines():
             try:
+                line = line.decode("utf-8")
                 line = line.strip()
                 if line.startswith("NAME"):
                     self.name = line.split(":")[1].strip()

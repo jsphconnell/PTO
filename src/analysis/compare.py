@@ -33,7 +33,7 @@ def compare_methods(solgen, fitness, term=2, num_runs=10, init=None):
         min_fit = min(fits)
         avg_fit = reduce(lambda x,y:x+y,(fits))/float(len(fits))
         max_fit = max(fits)
-        #print(met, " - best: ", min(fits), "avg: ", float(sum(fits))/len(fits))
+        print(met, " - best: ", min(fits), "avg: ", float(sum(fits))/len(fits))
         data.append((min_fit, avg_fit, max_fit))
     return data
 

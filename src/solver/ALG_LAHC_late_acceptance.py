@@ -53,7 +53,6 @@ Do until a chosen stopping condition
             self.LFA = max(10, self.NUMBER_GENERATION / 1000)
             self.LFA = min(self.LFA, self.NUMBER_GENERATION / 2)
         assert self.LFA <= self.NUMBER_GENERATION
-        print(self.LFA)
 
     def run(self):
 

@@ -13,7 +13,7 @@ class MGA:
     def __init__(self, ops, budget):
         self.ops = ops
 
-        self.NUMBER_GENERATION = int(budget / 2)
+        self.NUMBER_GENERATION = int(budget)
         self.POPULATION_SIZE = int(math.sqrt(budget))
         self.INFECTION_RATE = 0.5
         self.MUTATION_RATE = 0.5
@@ -29,12 +29,11 @@ class MGA:
         for _ in range(self.NUMBER_GENERATION):
             A = int(self.POPULATION_SIZE * random.random())
             B = int((A + 1 + self.DEME_SIZE * random.random()) % self.POPULATION_SIZE)
-            winner_pos, winner, loser_pos, loser = self.evaluate_genotypes(population, A, B)
+            winner_pos, winner, loser_pos, loser = self.pick_winner(population, A, B)
             population[winner_pos] = winner #Put winner back in population untouched
             loser = self.infect_loser(winner,loser,self.INFECTION_RATE, self.MUTATION_RATE) #infect and mutate loser
             population[loser_pos] = loser
-            fitness_population = self.evaluate_pop(population)
-            #fitness_loser = self.ops.evaluate_ind(loser)
+            fitness_population[loser_pos] = self.ops.evaluate_ind(loser) #Update the losers fitness in population
 
         return self.best_pop(population, fitness_population)
 
@@ -49,7 +48,7 @@ class MGA:
     def infect_loser(self, winner, loser, infection_rate, mutation_rate):
         return self.ops.microbial_infect_and_mutate_ind(winner,loser,infection_rate, mutation_rate)
 
-    def evaluate_genotypes(self, population, candidate_a, candidate_b):
+    def pick_winner(self, population, candidate_a, candidate_b):
         candidate_a_fitness = self.ops.evaluate_ind(population[candidate_a])
         candidate_b_fitness = self.ops.evaluate_ind(population[candidate_b])
 
