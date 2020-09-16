@@ -1,4 +1,5 @@
 from __future__ import print_function
+from decimal import Decimal
 
 import random as noise # for generating some random problems
 
@@ -91,22 +92,15 @@ def choose_node(inst, cur, remaining):
         return [n for n in remaining if inst[cur][n] == 0][0]
 
     s = sum(wts)
-    wts = [wt / float(s) for wt in wts] # normalise
+    wts = [wt / float(s) for wt in wts]# normalise
 
     return roulette_wheel(remaining, wts)
 
 @random_function # inform PTO that this function must be traced
 def roulette_wheel(items, wts): # assumes wts sum to 1
-    x = random.random()
-    for item, wt in zip(items, wts):
-        x -= wt
-        if x <= 0:
-            return item
-    # Should not reach here
-    print("Error")
-    print(items)
-    print(wts)
-    raise ValueError
+    node = random.choices(list(items), weights=wts, k=1)
+
+    return node[0]
 
 
 # Our fitness function takes an "inst" argument. Fitness is the
@@ -187,8 +181,7 @@ class TSP:
         coord_section = False
         for line in f.readlines():
             try:
-                line = line.decode("utf-8")
-                line = line.strip()
+                line = line.decode("utf-8").strip()
                 if line.startswith("NAME"):
                     self.name = line.split(":")[1].strip()
                 elif (line.startswith("COMMENT") or

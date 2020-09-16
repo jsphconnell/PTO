@@ -11,7 +11,10 @@ from REP_REAL import REAL
 
 def REP_factory(entry_type):
 
-    f, args = entry_type
+    if len(entry_type) == 3:
+        f, args, kwds = entry_type
+    else:
+        f, args = entry_type
         
     ### INT
 
@@ -32,8 +35,8 @@ def REP_factory(entry_type):
     if f.__name__ == "choice": # random.choice(seq)
         return SYM(*args)
 
-    #if f.__name__ == "choices": # random.choices(population, weights=None, *, cum_weights=None, k=1)
-    #    return SYM_VECT(args[0], k) # FIXME: how do I get k?
+    if f.__name__ == "choices": # random.choices(population, weights=None, *, cum_weights=None, k=1)
+        return SYM_VECT(args[0], **kwds)
 
     if f.__name__ == "shuffle": # random.shuffle(x[, random])
         return PERM(args[0], len(args[0]))
