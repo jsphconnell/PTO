@@ -15,8 +15,6 @@ class MGA:
         self.ops = ops
 
         self.NUMBER_GENERATION = int(budget)
-        #self.NUMBER_GENERATION = 141
-        #self.NUMBER_GENERATION = int(math.sqrt(budget))
         self.POPULATION_SIZE = int(math.sqrt(budget))
         self.INFECTION_RATE = 0.5
         self.MUTATION_RATE = 0.5
@@ -29,23 +27,19 @@ class MGA:
         fitness_population = self.evaluate_pop(population)
         self.data = [max(fitness_population)] * self.POPULATION_SIZE
 
-        print("MGA POP SIZE", self.POPULATION_SIZE)
-        print("MGA NUM GEN", self.NUMBER_GENERATION)
-        print("MGA Entering loop for generation", datetime.datetime.now())
+        # start = datetime.datetime.now()
 
         for _ in range(self.NUMBER_GENERATION):
-            #print("Generation Iteration", _)
-            #for i in range(141):
-            #print("Steady State Operation Iteration", i)
             A = int(self.POPULATION_SIZE * random.random())
             B = int((A + 1 + self.DEME_SIZE * random.random()) % self.POPULATION_SIZE)
             winner_pos, winner, loser_pos, loser = self.pick_winner(population, A, B)
-            #population[winner_pos] = winner #Put winner back in population untouched
+            population[winner_pos] = winner #Put winner back in population untouched
             loser = self.infect_loser(winner, loser, self.INFECTION_RATE, self.MUTATION_RATE) #infect and mutate loser
             population[loser_pos] = loser
             fitness_population[loser_pos] = self.ops.evaluate_ind(loser) #Update the losers fitness in population
 
-        print("MGA Finished loop before return", datetime.datetime.now())
+        # finish = datetime.datetime.now()
+        # print("MGA Running Time: ", (finish - start).total_seconds())
         return self.best_pop(population, fitness_population)
 
     #####

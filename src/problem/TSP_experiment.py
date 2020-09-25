@@ -10,15 +10,13 @@ inst_filenames = [
     "a280.tsp.gz",
     "rat575.tsp.gz"]
 
-
-
 # refuse to overwrite the output file.
 odirname = "TSP_results"
 assert not os.path.exists(odirname)
 os.makedirs(odirname)
 
 nreps = 30
-methods = ["RS", "HC", "LA", "EA"]
+methods = ["RS", "HC", "LA", "EA", "MGA"]
 str_traces = [False, True]
 randsols = ["randsol1", "randsol3"]
 budget = 20000

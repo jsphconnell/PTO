@@ -25,6 +25,7 @@ class EA:
         population = self.create_pop()
         fitness_population = self.evaluate_pop(population)
         self.data = [max(fitness_population)] * self.POPULATION_SIZE
+        #start = datetime.datetime.now()
 
         for _ in range(self.NUMBER_GENERATION):
             mating_pool = self.select_pop(population, fitness_population)
@@ -33,6 +34,8 @@ class EA:
             fitness_population = self.evaluate_pop(population)
             self.data += [max(fitness_population)] * self.POPULATION_SIZE
 
+        #finish = datetime.datetime.now()
+        #print("EA Running Time: ", (finish-start).total_seconds())
         return self.best_pop(population, fitness_population)
 
     #####

@@ -176,7 +176,7 @@ fn, obj = solve(_randsol, fitness, solver=search_algo, str_trace=str_trace, budg
 
 test_obj = test_fitness_fn(fn)
 
-item = (problem, gram_file, search_algo, randsol.__name__, str_trace, budget, seed, obj, test_obj, fn.__name__)
+item = (problem, gram_file, search_algo, randsol.__name__, str_trace, budget, seed, obj, test_obj, fn.func_name)
 ofilename = "%s_%s_%s_%s_%d_%d_%d.dat" % item[:-3]
 ofilename = ofilename.replace("/", "_") # in case user has passed in a dirname
 odirname = "GE_results"
