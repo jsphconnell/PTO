@@ -55,4 +55,12 @@ class OPS:
             offspring_geno[addr] = self.rep.combine(parents) # are we sure there is always a parent?
         return self.fix_ind(offspring_geno) # fix geno and get pheno
 
+    def microbial_infect_and_mutate_ind(self, winner, loser, infection_rate, mutation_rate):
 
+        for addr, elem in winner.geno.items():
+            if random.random() < infection_rate:
+                loser.geno.update({addr : (self.rep.blend(elem, loser[addr]) if addr in loser else elem)})
+            if random.random() < mutation_rate:
+                loser.geno.update({addr: self.rep.perturb(elem)})
+
+        return self.fix_ind(loser.geno)# fix geno and get pheno

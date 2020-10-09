@@ -53,7 +53,6 @@ Do until a chosen stopping condition
             self.LFA = max(10, self.NUMBER_GENERATION / 1000)
             self.LFA = min(self.LFA, self.NUMBER_GENERATION / 2)
         assert self.LFA <= self.NUMBER_GENERATION
-        print(self.LFA)
 
     def run(self):
 
@@ -62,7 +61,7 @@ Do until a chosen stopping condition
         self.data = [Cs]
         best = s
         Cbest = Cs
-        f = [Cs for _ in range int(self.LFA)+1]
+        f = [Cs for _ in range(int(self.LFA)+1)]
         for I in range(self.NUMBER_GENERATION):
             s_ = self.ops.mutate_ind(s)
             Cs_ = self.ops.evaluate_ind(s_)

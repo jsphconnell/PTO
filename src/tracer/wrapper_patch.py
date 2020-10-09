@@ -62,7 +62,10 @@ class Wrapper:
             addr = tuple(self.tr.stack)
 
             # get current entry type
-            entry_type = (f,args) # FIXME: if using random generator with key-word args this should be (f,args,kwds)
+            if f.__name__ == "choices":
+                entry_type = (f, args, kwds)
+            else:
+                entry_type = (f,args)
             
             if save_mode == "trace":
                 output = f(*args, **kwds) #sample

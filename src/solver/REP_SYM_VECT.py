@@ -4,9 +4,14 @@ from REP import REP
 class SYM_VECT(REP):
     """ Search Operators for Symbols """
 
-    def __init__(self, *args):
-        self.population, self.k = args
-         
+    def __init__(self, *args, **kwargs):
+        self.population = args[0]
+        self.weights = kwargs.get('weights')
+        self.k = kwargs.get('k')
+
+        # print(self.population)
+        # print(self.weights)
+        # print(self.k)
     #inherit this from superclass
     #def reset(self, (f, args, output)):
     #    return (f, args, f(*args)) # resample (reset)
