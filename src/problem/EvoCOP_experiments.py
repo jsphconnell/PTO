@@ -82,15 +82,15 @@ def triangularrank(features, costs, solution, alpha):
     
 dirname = "EvoCOP_results"
 os.makedirs(dirname, exist_ok=True)
-problems = [GRASP_ORDERING, GRASP_JSSP, GRASP_KNAPSACK, GRASP_TSP]
+problems = [GRASP_JSSP, GRASP_KNAPSACK]
 distributions = [stepuniform]
 alpha_vals = [0.0, 0.1, 0.5, 0.9, 1.0]
-solvers = ["RS", "HC", "EA"]
+solvers = ["RS", "HC", "EA", "MGA"]
 str_trace_vals = [True]
 # patch_vals = [False] # mv ../tracer/wrapper.py ../tracer/wrapper_patch.py; mv ../tracer/wrapper_nopatch.py ../tracer/wrapper.py
 patch_vals = [True]  # mv ../tracer/wrapper.py ../tracer/wrapper_nopatch.py; mv ../tracer/wrapper_patch.py ../tracer/wrapper.py
 
-budget = 200 # Change to 20,000 for the results as in the paper.
+budget = 20000 # Change to 20,000 for the results as in the paper.
 start_rep, end_rep = int(sys.argv[1]), int(sys.argv[2])
 
 for problem in problems:
@@ -136,4 +136,4 @@ for problem in problems:
                                 output = "\t".join(map(str, [problem.__name__, instance["name"], instance["n"], choose_feature.__name__, alpha, solver, patch, str_trace, budget, rep, start_time, elapsed_time, fit, str(ind)]))
                                 print(output)
                                 # uncomment this line to write to disk.
-                                # open(full_fname, "w").write(output + "\n")
+                                open(full_fname, "w").write(output + "\n")

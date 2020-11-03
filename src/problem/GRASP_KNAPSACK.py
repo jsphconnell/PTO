@@ -48,7 +48,7 @@ instances = eval(open(filename).read())
 def random_instance(n):
     return {
         "name": "knapsack-random-instance-PTO-%d" % n,
-        "doc": "Randomly-generated one-dimensional Knapsack instance. Generated using https://github.com/Program-Trace-Optimisation/PTO/blob/master/src/problem/GRASP_KNAPSACK.py with Python 3, random seed 0, on 5 Nov 2018. We use contiguous integer values for the weights so that they are well spread-out and the solution will consist of at least several items, not just 1 or 2. It is suggested to read this file in using eval(open(filename).read()).",
+        "doc": "Randomly-generated one-dimensional Knapsack instance. Generated using https://github.com/Program-Trace-Optimisation/PTO/blob/master/src/problem/GRASP_KNAPSACK.py with Python 3, random seed 0, on 3 Nov 2020. We use contiguous integer values for the weights so that they are well spread-out and the solution will consist of at least several items, not just 1 or 2. It is suggested to read this file in using eval(open(filename).read()).",
         "n": n,
         "val": [random.randint(1,100) for i in range(n)],
         "wt": list(range(1,n+1)),
