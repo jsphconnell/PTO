@@ -14,7 +14,7 @@ This file is for running experiments for an EvoCOP 2019 submission:
 -several combinatorial optimisation problems
 -several instances of each problem
 -maybe 5 different values of alpha
--several PTO solvers RS, HC, EA
+-several PTO solvers RS, HC, EA, MGA
 -PTO with versus without a new improved repair method for better re-use of valid outputs.
 -multiple repetitions
 
